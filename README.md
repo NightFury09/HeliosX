@@ -11,9 +11,6 @@
 
 **Helios-X** is an industrial-grade **Human Machine Interface (HMI)** dashboard application designed for hybrid solar inverters and grid-tie energy storage units. Optimized for landscape tablet consoles, the application delivers a premium, high-contrast, real-time monitoring and control interface built entirely in **Jetpack Compose**.
 
-<p align="center">
-  <img src="assets/screen.png" alt="Helios-X HMI Dashboard Preview" width="85%" style="border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0px 10px 30px rgba(0,0,0,0.5);" />
-</p>
 
 ---
 
