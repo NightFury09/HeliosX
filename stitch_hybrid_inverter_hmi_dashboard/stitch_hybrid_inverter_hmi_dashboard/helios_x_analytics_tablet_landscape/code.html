@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HELIOS-X | Tablet Mission Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #111415;
+            color: #e1e3e4;
+            width: 1200px;
+            height: 800px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+        .glass-card {
+            background: rgba(29, 32, 33, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+        }
+        .active-glow {
+            box-shadow: 0 0 15px rgba(78, 222, 163, 0.3);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(78, 222, 163, 0.3);
+            border-radius: 10px;
+        }
+        .sidebar-item-active {
+            background: rgba(78, 222, 163, 0.1);
+            border-right: 3px solid #4edea3;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-fixed": "#6ffbbe",
+                      "tertiary": "#ffb95f",
+                      "on-secondary-fixed-variant": "#004395",
+                      "primary": "#4edea3",
+                      "on-primary-fixed-variant": "#005236",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "surface-container": "#1d2021",
+                      "error-container": "#93000a",
+                      "surface-variant": "#323536",
+                      "surface-container-highest": "#323536",
+                      "secondary-fixed": "#d8e2ff",
+                      "surface-container-high": "#282a2b",
+                      "inverse-primary": "#006c49",
+                      "on-secondary-container": "#e6ecff",
+                      "on-primary": "#003824",
+                      "on-tertiary-fixed": "#2a1700",
+                      "surface": "#111415",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "secondary-container": "#0566d9",
+                      "secondary": "#adc6ff",
+                      "on-error-container": "#ffdad6",
+                      "tertiary-fixed": "#ffddb8",
+                      "outline": "#86948a",
+                      "on-primary-container": "#00422b",
+                      "on-secondary": "#002e6a",
+                      "inverse-surface": "#e1e3e4",
+                      "on-tertiary-container": "#523200",
+                      "error": "#ffb4ab",
+                      "background": "#111415",
+                      "on-tertiary": "#472a00",
+                      "primary-container": "#10b981",
+                      "surface-bright": "#373a3b",
+                      "outline-variant": "#3c4a42",
+                      "surface-container-lowest": "#0c0f10",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "on-primary-fixed": "#002113",
+                      "on-background": "#e1e3e4",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#2e3132",
+                      "surface-tint": "#4edea3",
+                      "tertiary-container": "#e29100",
+                      "surface-dim": "#111415",
+                      "primary-fixed-dim": "#4edea3",
+                      "on-surface": "#e1e3e4",
+                      "on-secondary-fixed": "#001a42",
+                      "on-surface-variant": "#bbcabf",
+                      "surface-container-low": "#191c1d"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sm": "12px",
+                      "lg": "40px",
+                      "xs": "4px",
+                      "gutter": "16px",
+                      "xl": "64px",
+                      "md": "24px",
+                      "base": "8px",
+                      "margin": "24px"
+              },
+              "fontFamily": {
+                      "headline-sm": ["Space Grotesk"],
+                      "data-mono": ["Space Grotesk"],
+                      "display-lg": ["Space Grotesk"],
+                      "label-caps": ["Space Grotesk"],
+                      "display-md": ["Space Grotesk"],
+                      "body-md": ["Space Grotesk"],
+                      "body-lg": ["Space Grotesk"]
+              },
+              "fontSize": {
+                      "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "data-mono": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                      "display-md": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface selection:bg-primary/30 flex">
+<!-- Persistent Sidebar Navigation (Tablet Sized) -->
+<aside class="flex flex-col w-64 bg-surface-container border-r border-outline-variant/10 shrink-0">
+<div class="p-gutter h-16 flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary text-display-md" data-icon="solar_power">solar_power</span>
+<h1 class="font-display-md text-headline-sm font-bold tracking-tighter text-primary">HELIOS-X</h1>
+</div>
+<nav class="mt-md flex-1 flex flex-col gap-xs">
+<a class="px-gutter py-md flex items-center gap-md text-on-surface-variant hover:text-primary hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps">Dashboard</span>
+</a>
+<a class="px-gutter py-md flex items-center gap-md text-primary sidebar-item-active transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="bar_chart">bar_chart</span>
+<span class="font-label-caps text-label-caps">Analytics</span>
+</a>
+<a class="px-gutter py-md flex items-center gap-md text-on-surface-variant hover:text-primary hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span class="font-label-caps text-label-caps">Logs</span>
+</a>
+<a class="px-gutter py-md flex items-center gap-md text-on-surface-variant hover:text-primary hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-label-caps text-label-caps">Settings</span>
+</a>
+</nav>
+<div class="p-gutter mt-auto">
+<div class="p-sm bg-surface-container-high rounded-xl border border-outline-variant/10 flex items-center gap-sm">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center text-on-primary-container font-bold">JD</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-label-caps truncate">Commander Data</p>
+<p class="text-[10px] text-on-surface-variant uppercase">Operator Lvl 4</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="more_vert">more_vert</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="flex-1 flex flex-col min-w-0 h-full overflow-hidden">
+<!-- Top Bar -->
+<header class="h-16 flex items-center justify-between px-gutter border-b border-outline-variant/10 bg-surface/30 backdrop-blur-md shrink-0">
+<h2 class="font-headline-sm text-headline-sm text-on-surface">Analytics Control</h2>
+<div class="flex items-center gap-md">
+<div class="flex items-center p-1 bg-surface-container-high rounded-lg border border-outline-variant/20 h-10">
+<button class="px-md h-full font-label-caps text-label-caps text-primary bg-primary/10 rounded transition-all">Day</button>
+<button class="px-md h-full font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-all">Week</button>
+<button class="px-md h-full font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface transition-all">Month</button>
+</div>
+<button class="material-symbols-outlined text-primary p-base rounded-full hover:bg-white/5 transition-colors" data-icon="sensors">sensors</button>
+</div>
+</header>
+<!-- Tablet Layout Content -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-gutter space-y-gutter">
+<!-- Top Row: Data Cards (Left) and Main Chart (Right) -->
+<div class="grid grid-cols-12 gap-gutter h-[450px]">
+<!-- KPI Cards Column (4/12) -->
+<div class="col-span-4 flex flex-col gap-gutter h-full">
+<div class="glass-card p-md rounded-xl flex-1 flex flex-col justify-center relative group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-label-caps text-[10px] text-on-surface-variant">TOTAL YIELD</span>
+<span class="material-symbols-outlined text-primary scale-75" data-icon="bolt">bolt</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-md text-headline-sm text-primary">42.8</span>
+<span class="text-body-md text-on-surface-variant">kWh</span>
+</div>
+<div class="mt-sm h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-primary w-3/4 shadow-[0_0_8px_#4edea3]"></div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl flex-1 flex flex-col justify-center relative group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-label-caps text-[10px] text-on-surface-variant">SELF-CONSUMPTION</span>
+<span class="material-symbols-outlined text-tertiary scale-75" data-icon="home_app_fill">home_app_logo</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-md text-headline-sm text-on-surface">84</span>
+<span class="text-body-md text-on-surface-variant">%</span>
+</div>
+<div class="mt-sm h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-tertiary w-[84%]"></div>
+</div>
+</div>
+<div class="glass-card p-md rounded-xl flex-1 flex flex-col justify-center relative group hover:border-primary/50 transition-all">
+<div class="flex justify-between items-start mb-xs">
+<span class="font-label-caps text-[10px] text-on-surface-variant">PEAK OUTPUT</span>
+<span class="material-symbols-outlined text-secondary scale-75" data-icon="speed">speed</span>
+</div>
+<div class="flex items-baseline gap-xs">
+<span class="font-display-md text-headline-sm text-on-surface">5.2</span>
+<span class="text-body-md text-on-surface-variant">kW</span>
+</div>
+<div class="mt-sm h-1 bg-surface-variant rounded-full overflow-hidden">
+<div class="h-full bg-secondary w-1/2"></div>
+</div>
+</div>
+</div>
+<!-- Main Interactive Chart (8/12) -->
+<div class="col-span-8 glass-card p-md rounded-xl flex flex-col h-full relative overflow-hidden">
+<div class="flex justify-between items-start mb-sm">
+<div>
+<h3 class="font-headline-sm text-body-lg font-bold">Generation vs Consumption</h3>
+<p class="text-[12px] text-on-surface-variant">Mission flow profile</p>
+</div>
+<div class="flex gap-md">
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-primary active-glow"></div>
+<span class="font-label-caps text-[9px]">PV Solar</span>
+</div>
+<div class="flex items-center gap-xs">
+<div class="w-2 h-2 rounded-full bg-on-surface/40"></div>
+<span class="font-label-caps text-[9px]">Load</span>
+</div>
+</div>
+</div>
+<div class="flex-1 w-full relative">
+<svg class="w-full h-full overflow-visible" viewbox="0 0 700 300">
+<!-- Grid Lines -->
+<line stroke="rgba(255,255,255,0.03)" stroke-width="1" x1="0" x2="700" y1="0" y2="0"></line>
+<line stroke="rgba(255,255,255,0.03)" stroke-width="1" x1="0" x2="700" y1="75" y2="75"></line>
+<line stroke="rgba(255,255,255,0.03)" stroke-width="1" x1="0" x2="700" y1="150" y2="150"></line>
+<line stroke="rgba(255,255,255,0.03)" stroke-width="1" x1="0" x2="700" y1="225" y2="225"></line>
+<line stroke="rgba(255,255,255,0.08)" stroke-width="1" x1="0" x2="700" y1="300" y2="300"></line>
+<!-- Consumption Path -->
+<path d="M 0 280 Q 70 270 140 285 T 280 260 T 420 275 T 560 285 T 700 275" fill="none" opacity="0.2" stroke="white" stroke-width="2"></path>
+<!-- Generation Area -->
+<lineargradient id="chartGradTablet" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4edea3" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#4edea3" stop-opacity="0"></stop>
+</lineargradient>
+<path d="M 0 300 L 0 290 Q 100 290 175 180 T 350 40 T 525 180 T 700 290 L 700 300 Z" fill="url(#chartGradTablet)"></path>
+<path class="filter drop-shadow-[0_0_8px_rgba(78,222,163,0.5)]" d="M 0 290 Q 100 290 175 180 T 350 40 T 525 180 T 700 290" fill="none" id="primaryChartPath" stroke="#4edea3" stroke-linecap="round" stroke-width="4"></path>
+<!-- Interactive Nodes -->
+<circle cx="350" cy="40" fill="#4edea3" r="5"></circle>
+<circle cx="350" cy="40" fill="#4edea3" opacity="0.2" r="10">
+<animate attributename="r" dur="2s" repeatcount="indefinite" values="8;14;8"></animate>
+</circle>
+</svg>
+<div class="flex justify-between mt-sm font-label-caps text-[9px] text-on-surface-variant">
+<span>00:00</span>
+<span>06:00</span>
+<span>12:00</span>
+<span>18:00</span>
+<span>23:59</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Row: Table and Weather/AI (Horizontal Stack) -->
+<div class="grid grid-cols-12 gap-gutter h-[220px]">
+<!-- Table (7/12) -->
+<div class="col-span-7 glass-card rounded-xl overflow-hidden flex flex-col">
+<div class="px-md py-sm border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-high/30">
+<h3 class="font-label-caps text-[11px] font-bold">HOURLY BREAKDOWN</h3>
+<span class="material-symbols-outlined text-xs text-on-surface-variant" data-icon="file_download">file_download</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar">
+<table class="w-full text-left">
+<thead class="sticky top-0 bg-surface-container-high/90 backdrop-blur font-label-caps text-[9px] text-on-surface-variant">
+<tr>
+<th class="px-md py-2">TIME</th>
+<th class="px-md py-2">PV GEN</th>
+<th class="px-md py-2">LOAD</th>
+<th class="px-md py-2 text-right">STATUS</th>
+</tr>
+</thead>
+<tbody class="font-body-md text-[13px] divide-y divide-outline-variant/5">
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-md py-2">12:00 - 13:00</td>
+<td class="px-md py-2 font-data-mono text-primary">5.24 kWh</td>
+<td class="px-md py-2 font-data-mono">1.12 kWh</td>
+<td class="px-md py-2 text-right">
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[9px] font-bold uppercase">Surplus</span>
+</td>
+</tr>
+<tr class="hover:bg-white/5 transition-colors">
+<td class="px-md py-2">11:00 - 12:00</td>
+<td class="px-md py-2 font-data-mono text-primary">4.89 kWh</td>
+<td class="px-md py-2 font-data-mono">0.98 kWh</td>
+<td class="px-md py-2 text-right">
+<span class="px-1.5 py-0.5 rounded bg-primary/10 text-primary text-[9px] font-bold uppercase">Surplus</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Weather & AI Column (5/12) -->
+<div class="col-span-5 flex flex-col gap-gutter">
+<div class="glass-card rounded-xl p-sm flex items-center justify-between h-[85px]">
+<div class="flex-1">
+<span class="font-label-caps text-[9px] text-on-surface-variant block">WEATHER</span>
+<p class="font-display-md text-headline-sm leading-none">24°C</p>
+<p class="text-[11px] text-on-surface-variant">Cloudy, 12% yield loss</p>
+</div>
+<span class="material-symbols-outlined text-tertiary text-display-md" data-icon="partly_cloudy_day" style="font-variation-settings: 'FILL' 1;">partly_cloudy_day</span>
+</div>
+<div class="glass-card rounded-xl p-sm flex-1 flex flex-col">
+<span class="font-label-caps text-[9px] text-on-surface-variant block mb-1">AI INSIGHTS</span>
+<div class="p-2 bg-primary/5 border border-primary/20 rounded flex-1 overflow-hidden">
+<p class="text-[11px] leading-tight text-primary-fixed">
+<span class="font-bold">Maintenance:</span> Washing window tomorrow 09:00.
+                        </p>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+    // Scale animations for buttons
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('mousedown', () => btn.style.transform = 'scale(0.96)');
+        btn.addEventListener('mouseup', () => btn.style.transform = 'scale(1)');
+        btn.addEventListener('mouseleave', () => btn.style.transform = 'scale(1)');
+    });
+
+    // Chart draw-in effect
+    window.addEventListener('DOMContentLoaded', () => {
+        const chartPath = document.getElementById('primaryChartPath');
+        if (chartPath) {
+            const length = chartPath.getTotalLength();
+            chartPath.style.strokeDasharray = length;
+            chartPath.style.strokeDashoffset = length;
+            chartPath.getBoundingClientRect(); 
+            chartPath.style.transition = 'stroke-dashoffset 2s ease-out';
+            chartPath.style.strokeDashoffset = '0';
+        }
+    });
+</script>
+</body></html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=1200, height=800, initial-scale=1.0" name="viewport"/>
+<title>HELIOS-X | System Settings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-fixed": "#6ffbbe",
+                    "tertiary": "#ffb95f",
+                    "on-secondary-fixed-variant": "#004395",
+                    "primary": "#4edea3",
+                    "on-primary-fixed-variant": "#005236",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "surface-container": "#1d2021",
+                    "error-container": "#93000a",
+                    "surface-variant": "#323536",
+                    "surface-container-highest": "#323536",
+                    "secondary-fixed": "#d8e2ff",
+                    "surface-container-high": "#282a2b",
+                    "inverse-primary": "#006c49",
+                    "on-secondary-container": "#e6ecff",
+                    "on-primary": "#003824",
+                    "on-tertiary-fixed": "#2a1700",
+                    "surface": "#111415",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "secondary-container": "#0566d9",
+                    "secondary": "#adc6ff",
+                    "on-error-container": "#ffdad6",
+                    "tertiary-fixed": "#ffddb8",
+                    "outline": "#86948a",
+                    "on-primary-container": "#00422b",
+                    "on-secondary": "#002e6a",
+                    "inverse-surface": "#e1e3e4",
+                    "on-tertiary-container": "#523200",
+                    "error": "#ffb4ab",
+                    "background": "#111415",
+                    "on-tertiary": "#472a00",
+                    "primary-container": "#10b981",
+                    "surface-bright": "#373a3b",
+                    "outline-variant": "#3c4a42",
+                    "surface-container-lowest": "#0c0f10",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "on-primary-fixed": "#002113",
+                    "on-background": "#e1e3e4",
+                    "on-error": "#690005",
+                    "inverse-on-surface": "#2e3132",
+                    "surface-tint": "#4edea3",
+                    "tertiary-container": "#e29100",
+                    "surface-dim": "#111415",
+                    "primary-fixed-dim": "#4edea3",
+                    "on-surface": "#e1e3e4",
+                    "on-secondary-fixed": "#001a42",
+                    "on-surface-variant": "#bbcabf",
+                    "surface-container-low": "#191c1d"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sm": "12px",
+                    "lg": "40px",
+                    "xs": "4px",
+                    "gutter": "16px",
+                    "xl": "64px",
+                    "md": "24px",
+                    "base": "8px",
+                    "margin": "24px"
+            },
+            "fontFamily": {
+                    "headline-sm": ["Space Grotesk"],
+                    "data-mono": ["Space Grotesk"],
+                    "display-lg": ["Space Grotesk"],
+                    "label-caps": ["Space Grotesk"],
+                    "display-md": ["Space Grotesk"],
+                    "body-md": ["Space Grotesk"],
+                    "body-lg": ["Space Grotesk"]
+            },
+            "fontSize": {
+                    "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "data-mono": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                    "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                    "display-md": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: #111415;
+            color: #e1e3e4;
+            font-family: 'Space Grotesk', sans-serif;
+            overflow: hidden;
+            width: 1200px;
+            height: 800px;
+            margin: 0 auto;
+        }
+        .glass-card {
+            background: rgba(30, 32, 33, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #4edea3;
+        }
+        .toggle-checkbox:checked + .toggle-label .toggle-dot {
+            transform: translateX(110%);
+        }
+        /* Enhanced hit areas for tablet touch */
+        .toggle-label {
+            width: 72px;
+            height: 36px;
+        }
+        .toggle-dot {
+            width: 32px;
+            height: 32px;
+            margin: 2px;
+        }
+        .custom-range::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 28px;
+            height: 28px;
+            background: #4edea3;
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(78, 222, 163, 0.5);
+            margin-top: -12px;
+        }
+        .custom-range::-webkit-slider-runnable-track {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+        }
+        .sidebar-active {
+            background: rgba(78, 222, 163, 0.1);
+            color: #4edea3;
+            border-right: 3px solid #4edea3;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.02);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex flex-row">
+<!-- Sidebar -->
+<aside class="flex flex-col w-[260px] h-full bg-surface-container-low border-r border-outline-variant/20 z-50 shrink-0">
+<div class="h-20 flex items-center px-8 gap-4 border-b border-outline-variant/10">
+<span class="material-symbols-outlined text-primary text-3xl" style="font-variation-settings: 'FILL' 1;">solar_power</span>
+<h1 class="font-display-md text-2xl font-bold tracking-tighter text-primary">HELIOS-X</h1>
+</div>
+<nav class="flex-1 py-6 flex flex-col gap-2">
+<a class="flex items-center gap-5 px-8 py-5 text-on-surface-variant opacity-70 hover:opacity-100 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined text-2xl">dashboard</span>
+<span class="font-label-caps tracking-widest text-sm">Dashboard</span>
+</a>
+<a class="flex items-center gap-5 px-8 py-5 text-on-surface-variant opacity-70 hover:opacity-100 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined text-2xl">bar_chart</span>
+<span class="font-label-caps tracking-widest text-sm">Analytics</span>
+</a>
+<a class="flex items-center gap-5 px-8 py-5 text-on-surface-variant opacity-70 hover:opacity-100 hover:bg-white/5 transition-all" href="#">
+<span class="material-symbols-outlined text-2xl">history_edu</span>
+<span class="font-label-caps tracking-widest text-sm">Logs</span>
+</a>
+<a class="sidebar-active flex items-center gap-5 px-8 py-5 transition-all" href="#">
+<span class="material-symbols-outlined text-2xl" style="font-variation-settings: 'FILL' 1;">settings_input_component</span>
+<span class="font-label-caps tracking-widest text-sm">Settings</span>
+</a>
+</nav>
+<div class="p-8 border-t border-outline-variant/10">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person</span>
+</div>
+<div>
+<p class="font-label-caps text-[10px] text-on-surface-variant">OPERATOR</p>
+<p class="font-body-md text-sm font-medium">Admin-01</p>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 h-full overflow-hidden flex flex-col bg-background">
+<div class="flex-1 overflow-y-auto px-10 py-8">
+<!-- Header Section -->
+<section class="mb-10 flex items-center justify-between">
+<div>
+<h2 class="font-display-md text-4xl text-on-surface">System Settings</h2>
+<p class="font-body-lg text-on-surface-variant opacity-70 mt-1">Manage connection protocols and energy optimization parameters.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container rounded-xl p-1.5 border border-white/5">
+<button class="px-6 py-2.5 rounded-lg font-label-caps text-label-caps text-primary bg-primary/10">Global</button>
+<button class="px-6 py-2.5 rounded-lg font-label-caps text-label-caps text-on-surface-variant hover:text-on-surface">Advanced</button>
+</div>
+</section>
+<!-- Settings Grid (Tablet Optimized Multi-column) -->
+<div class="grid grid-cols-2 gap-8">
+<!-- Column Left -->
+<div class="space-y-8">
+<!-- Connection Settings -->
+<section class="glass-card rounded-2xl overflow-hidden shadow-xl">
+<div class="p-6 border-b border-white/5 bg-white/5 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">language</span>
+<h3 class="font-label-caps text-sm text-primary uppercase tracking-[0.2em] font-bold">Connection Settings</h3>
+</div>
+<div class="divide-y divide-white/5">
+<!-- Wi-Fi -->
+<div class="flex items-center justify-between p-8 hover:bg-white/5 transition-colors group">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary text-3xl">wifi</span>
+</div>
+<div>
+<p class="font-body-lg text-on-surface font-semibold text-lg">Wi-Fi Network</p>
+<p class="font-body-md text-on-surface-variant text-sm mt-0.5">HELIOS_5G_NORTH (Connected)</p>
+</div>
+</div>
+<button class="px-7 py-3.5 rounded-xl bg-surface-variant font-label-caps text-xs tracking-widest hover:bg-primary hover:text-on-primary transition-all shadow-lg active:scale-95">CHANGE</button>
+</div>
+<!-- Bluetooth -->
+<div class="flex items-center justify-between p-8 hover:bg-white/5 transition-colors group">
+<div class="flex items-center gap-5">
+<div class="w-14 h-14 rounded-2xl bg-surface-container flex items-center justify-center group-hover:bg-primary/20 transition-all">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary text-3xl">bluetooth</span>
+</div>
+<div>
+<p class="font-body-lg text-on-surface font-semibold text-lg">Bluetooth Pairing</p>
+<p class="font-body-md text-on-surface-variant text-sm mt-0.5">Visible as HELIOS-X-SRV-092</p>
+</div>
+</div>
+<div class="relative inline-block transition duration-200 ease-in">
+<input checked="" class="toggle-checkbox absolute block w-0 h-0 opacity-0" id="toggle-bt" type="checkbox"/>
+<label class="toggle-label block overflow-hidden rounded-full bg-surface-variant cursor-pointer transition-colors duration-200" for="toggle-bt">
+<span class="toggle-dot block rounded-full bg-white shadow-md transform transition-transform duration-200"></span>
+</label>
+</div>
+</div>
+</div>
+</section>
+<!-- Alert Configuration -->
+<section class="glass-card rounded-2xl overflow-hidden shadow-xl">
+<div class="p-6 border-b border-white/5 bg-white/5 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">notifications</span>
+<h3 class="font-label-caps text-sm text-primary uppercase tracking-[0.2em] font-bold">Alert Configuration</h3>
+</div>
+<div class="divide-y divide-white/5">
+<div class="flex items-center justify-between p-8 hover:bg-white/5 transition-all">
+<div class="flex items-center gap-5">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">mail</span>
+<p class="font-body-lg text-on-surface text-lg">Email Notifications</p>
+</div>
+<div class="relative inline-block">
+<input checked="" class="toggle-checkbox absolute block w-0 h-0 opacity-0" id="toggle-email" type="checkbox"/>
+<label class="toggle-label block overflow-hidden rounded-full bg-surface-variant cursor-pointer transition-colors duration-200" for="toggle-email">
+<span class="toggle-dot block rounded-full bg-white shadow-md transform transition-transform duration-200"></span>
+</label>
+</div>
+</div>
+<div class="flex items-center justify-between p-8 hover:bg-white/5 transition-all">
+<div class="flex items-center gap-5">
+<span class="material-symbols-outlined text-on-surface-variant text-3xl">notifications_active</span>
+<p class="font-body-lg text-on-surface text-lg">Push Alerts</p>
+</div>
+<div class="relative inline-block">
+<input checked="" class="toggle-checkbox absolute block w-0 h-0 opacity-0" id="toggle-push" type="checkbox"/>
+<label class="toggle-label block overflow-hidden rounded-full bg-surface-variant cursor-pointer transition-colors duration-200" for="toggle-push">
+<span class="toggle-dot block rounded-full bg-white shadow-md transform transition-transform duration-200"></span>
+</label>
+</div>
+</div>
+</div>
+</section>
+</div>
+<!-- Column Right -->
+<div class="space-y-8">
+<!-- Battery Management -->
+<section class="glass-card rounded-2xl overflow-hidden shadow-xl h-full flex flex-col">
+<div class="p-6 border-b border-white/5 bg-white/5 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl">battery_charging_full</span>
+<h3 class="font-label-caps text-sm text-primary uppercase tracking-[0.2em] font-bold">Battery Management</h3>
+</div>
+<div class="p-8 space-y-12 flex-1">
+<!-- Discharge Limit -->
+<div class="space-y-6">
+<div class="flex justify-between items-end">
+<div>
+<p class="font-body-lg text-on-surface font-semibold text-lg">Discharge Limit</p>
+<p class="font-body-md text-on-surface-variant text-sm mt-1">Minimum SOC before grid fallback</p>
+</div>
+<p class="font-data-mono text-4xl font-bold text-primary" id="discharge-val">15%</p>
+</div>
+<div class="relative pt-4 pb-2">
+<input class="custom-range w-full h-2 bg-surface-variant rounded-lg appearance-none cursor-pointer" max="50" min="5" oninput="document.getElementById('discharge-val').innerText = this.value + '%'" type="range" value="15"/>
+<div class="flex justify-between mt-4 text-[11px] font-label-caps text-on-surface-variant opacity-60 tracking-widest">
+<span>5% (MIN)</span>
+<span>50% (MAX)</span>
+</div>
+</div>
+</div>
+<!-- Priority Selector -->
+<div class="space-y-6">
+<p class="font-body-lg text-on-surface font-semibold text-lg">Charging Priority</p>
+<div class="grid grid-cols-3 gap-5">
+<button class="priority-btn flex flex-col items-center gap-4 p-8 rounded-2xl border-2 border-primary bg-primary/10 transition-all shadow-xl group" data-priority="solar">
+<span class="material-symbols-outlined text-primary text-4xl" style="font-variation-settings: 'FILL' 1;">solar_power</span>
+<span class="font-label-caps text-xs tracking-[0.15em] font-bold">SOLAR</span>
+</button>
+<button class="priority-btn flex flex-col items-center gap-4 p-8 rounded-2xl border-2 border-outline-variant bg-surface-container hover:border-primary/50 transition-all opacity-60 group" data-priority="grid">
+<span class="material-symbols-outlined text-4xl">grid_view</span>
+<span class="font-label-caps text-xs tracking-[0.15em] font-bold">GRID</span>
+</button>
+<button class="priority-btn flex flex-col items-center gap-4 p-8 rounded-2xl border-2 border-outline-variant bg-surface-container hover:border-primary/50 transition-all opacity-60 group" data-priority="balanced">
+<span class="material-symbols-outlined text-4xl">bolt</span>
+<span class="font-label-caps text-xs tracking-[0.15em] font-bold">BALANCED</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+<!-- Bottom Row Widgets -->
+<div class="mt-8 space-y-6">
+<!-- Firmware Upgrade -->
+<section class="glass-card rounded-2xl p-8 border-primary/20 bg-primary/5 flex items-center justify-between">
+<div class="flex items-center gap-6">
+<div class="p-5 rounded-2xl bg-primary/20 animate-pulse">
+<span class="material-symbols-outlined text-primary text-3xl">system_update</span>
+</div>
+<div>
+<p class="font-body-lg text-on-surface font-bold text-xl">Firmware v2.4.1-Stable</p>
+<p class="font-body-md text-on-surface-variant text-sm mt-1">System is up to date. Last checked today 08:12</p>
+</div>
+</div>
+<button class="bg-primary text-on-primary font-label-caps text-xs tracking-widest font-bold px-10 py-5 rounded-2xl hover:brightness-110 active:scale-95 transition-all shadow-lg shadow-primary/20">CHECK FOR UPDATES</button>
+</section>
+<!-- System Info -->
+<div class="grid grid-cols-3 gap-6">
+<div class="glass-card rounded-2xl p-6 flex flex-col gap-3">
+<p class="font-label-caps text-[11px] text-on-surface-variant opacity-60 tracking-[0.15em] font-bold">SERIAL NUMBER</p>
+<p class="font-data-mono text-2xl text-on-surface">HX-992-ALPHA-01</p>
+</div>
+<div class="glass-card rounded-2xl p-6 flex flex-col gap-3">
+<p class="font-label-caps text-[11px] text-on-surface-variant opacity-60 tracking-[0.15em] font-bold">UPTIME</p>
+<p class="font-data-mono text-2xl text-on-surface">142D 12H 04M</p>
+</div>
+<div class="glass-card rounded-2xl p-6 flex flex-col gap-3">
+<p class="font-label-caps text-[11px] text-on-surface-variant opacity-60 tracking-[0.15em] font-bold">LOCALE</p>
+<p class="font-data-mono text-2xl text-on-surface">NORTH_REG_A1</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Dynamic Background Decor -->
+<div class="fixed top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+<div class="fixed bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full pointer-events-none -z-10"></div>
+<script>
+        // Priority selector logic
+        const priorityBtns = document.querySelectorAll('.priority-btn');
+        priorityBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                priorityBtns.forEach(b => {
+                    b.classList.remove('border-primary', 'bg-primary/10', 'opacity-100', 'shadow-xl');
+                    b.classList.add('border-outline-variant', 'bg-surface-container', 'opacity-60');
+                    b.querySelector('span:first-child').style.fontVariationSettings = "'FILL' 0";
+                });
+                btn.classList.add('border-primary', 'bg-primary/10', 'opacity-100', 'shadow-xl');
+                btn.classList.remove('border-outline-variant', 'bg-surface-container', 'opacity-60');
+                btn.querySelector('span:first-child').style.fontVariationSettings = "'FILL' 1";
+            });
+        });
+
+        // Add touch vibration feedback simulation for tablet
+        document.querySelectorAll('button, input[type="range"], label').forEach(el => {
+            el.addEventListener('touchstart', () => {
+                // Potential for haptic feedback API if supported
+                if ("vibrate" in navigator) {
+                    navigator.vibrate(10);
+                }
+            });
+        });
+    </script>
+</body></html>

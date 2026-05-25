@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>HELIOS-X | Tablet Solar Intelligence</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: #111415;
+            color: #e1e3e4;
+            overflow: hidden;
+            /* Force tablet resolution for this mock */
+            width: 1200px;
+            height: 800px;
+            margin: 0 auto;
+        }
+
+        .glass-card {
+            background: rgba(29, 32, 33, 0.4);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Energy Flow Animations */
+        .energy-path {
+            stroke-dasharray: 8, 12;
+            animation: dash-move 1.5s linear infinite;
+        }
+        
+        .energy-path-fast {
+            stroke-dasharray: 6, 10;
+            animation: dash-move 0.8s linear infinite;
+        }
+
+        @keyframes dash-move {
+            to {
+                stroke-dashoffset: -20;
+            }
+        }
+
+        /* Pulsing Glow Effects */
+        .glow-emerald { 
+            box-shadow: 0 0 20px rgba(78, 222, 163, 0.15);
+            animation: pulse-emerald 3s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-emerald {
+            0%, 100% { box-shadow: 0 0 15px rgba(78, 222, 163, 0.1); }
+            50% { box-shadow: 0 0 25px rgba(78, 222, 163, 0.3); }
+        }
+
+        .hub-pulse {
+            animation: hub-glow 4s ease-in-out infinite;
+        }
+
+        @keyframes hub-glow {
+            0%, 100% { filter: drop-shadow(0 0 5px rgba(78, 222, 163, 0.2)); }
+            50% { filter: drop-shadow(0 0 20px rgba(78, 222, 163, 0.5)); }
+        }
+
+        .hero-gradient {
+            background: radial-gradient(circle at center, rgba(78, 222, 163, 0.08) 0%, transparent 70%);
+        }
+
+        /* Entrance Animations */
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation: slideUpFade 0.6s ease-out 0.1s both; }
+        .stagger-2 { animation: slideUpFade 0.6s ease-out 0.2s both; }
+        .stagger-3 { animation: slideUpFade 0.6s ease-out 0.3s both; }
+        .stagger-4 { animation: slideUpFade 0.6s ease-out 0.4s both; }
+
+        .main-scroll::-webkit-scrollbar { width: 4px; }
+        .main-scroll::-webkit-scrollbar-track { background: transparent; }
+        .main-scroll::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.1); border-radius: 10px; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                "on-primary": "#003824",
+                "background": "#111415",
+                "tertiary-fixed-dim": "#ffb95f",
+                "surface-variant": "#323536",
+                "surface-container": "#1d2021",
+                "secondary-fixed": "#d8e2ff",
+                "secondary-fixed-dim": "#adc6ff",
+                "surface-dim": "#111415",
+                "on-primary-fixed": "#002113",
+                "secondary": "#adc6ff",
+                "on-tertiary": "#472a00",
+                "on-surface": "#e1e3e4",
+                "on-primary-container": "#00422b",
+                "tertiary": "#ffb95f",
+                "primary-fixed": "#6ffbbe",
+                "outline-variant": "#3c4a42",
+                "on-tertiary-fixed-variant": "#653e00",
+                "on-secondary-fixed-variant": "#004395",
+                "error": "#ffb4ab",
+                "secondary-container": "#0566d9",
+                "on-background": "#e1e3e4",
+                "outline": "#86948a",
+                "surface-container-high": "#282a2b",
+                "on-tertiary-fixed": "#2a1700",
+                "error-container": "#93000a",
+                "tertiary-container": "#e29100",
+                "inverse-primary": "#006c49",
+                "primary-container": "#10b981",
+                "on-secondary": "#002e6a",
+                "tertiary-fixed": "#ffddb8",
+                "on-secondary-fixed": "#001a42",
+                "surface-container-low": "#191c1d",
+                "on-primary-fixed-variant": "#005236",
+                "on-tertiary-container": "#523200",
+                "surface-container-highest": "#323536",
+                "inverse-surface": "#e1e3e4",
+                "primary": "#4edea3",
+                "surface-tint": "#4edea3",
+                "surface": "#111415",
+                "on-error-container": "#ffdad6",
+                "surface-bright": "#373a3b",
+                "on-secondary-container": "#e6ecff",
+                "surface-container-lowest": "#0c0f10",
+                "primary-fixed-dim": "#4edea3",
+                "on-surface-variant": "#bbcabf",
+                "on-error": "#690005",
+                "inverse-on-surface": "#2e3132"
+              },
+              "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+              },
+              "fontFamily": {
+                "body-md": ["Space Grotesk"],
+                "data-mono": ["Space Grotesk"],
+                "body-lg": ["Space Grotesk"],
+                "headline-sm": ["Space Grotesk"],
+                "display-md": ["Space Grotesk"],
+                "display-lg": ["Space Grotesk"],
+                "label-caps": ["Space Grotesk"]
+              },
+              "fontSize": {
+                "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                "data-mono": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.02em", "fontWeight": "500"}],
+                "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                "headline-sm": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                "display-md": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}]
+              }
+            },
+          },
+        }
+    </script>
+</head>
+<body class="flex h-screen w-[1200px] h-[800px] bg-background text-on-background selection:bg-primary/30">
+<!-- Persistent Sidebar Navigation (Tablet Friendly) -->
+<aside class="w-64 h-full bg-surface-container-low border-r border-white/5 flex flex-col z-50 shrink-0">
+<div class="h-20 flex items-center px-6 gap-3 border-b border-white/5">
+<span class="material-symbols-outlined text-primary text-display-md" data-icon="bolt">bolt</span>
+<h1 class="font-display-md text-headline-sm font-bold tracking-tighter text-primary">HELIOS-X</h1>
+</div>
+<nav class="flex-1 px-3 py-6 flex flex-col gap-2">
+<a class="flex items-center gap-4 px-4 py-4 text-primary bg-primary/10 rounded-2xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="font-body-md font-semibold">Dashboard</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-4 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-2xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="insights">insights</span>
+<span class="font-body-md font-medium">Analytics</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-4 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-2xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-body-md font-medium">Event Logs</span>
+</a>
+<a class="flex items-center gap-4 px-4 py-4 text-on-surface-variant hover:text-primary hover:bg-white/5 rounded-2xl transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-body-md font-medium">Settings</span>
+</a>
+</nav>
+<div class="p-4 border-t border-white/5">
+<div class="flex items-center gap-3 px-4 py-3 rounded-2xl bg-surface-container-high/50">
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-md" data-icon="person">person</span>
+</div>
+<div class="flex-1 overflow-hidden">
+<p class="text-sm font-bold truncate">Admin User</p>
+<p class="text-[10px] text-on-surface-variant">Hub #842</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="logout">logout</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col overflow-y-auto main-scroll bg-surface-dim">
+<!-- Tablet Header -->
+<header class="h-20 flex justify-between items-center px-8 border-b border-white/5 bg-surface/50 backdrop-blur-md sticky top-0 z-40">
+<div class="flex flex-col">
+<p class="text-on-surface-variant text-[10px] uppercase tracking-[0.2em] font-bold">Live System Status</p>
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<p class="text-primary font-bold text-sm">Online &amp; Optimizing</p>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 bg-surface-container-high px-4 py-2.5 rounded-full border border-white/5">
+<span class="material-symbols-outlined text-tertiary text-lg" data-icon="thermostat">thermostat</span>
+<span class="text-sm font-data-mono font-bold">42°C</span>
+</div>
+<button class="p-3 rounded-full hover:bg-white/5 transition-colors relative">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+<span class="absolute top-3 right-3 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="p-3 rounded-full hover:bg-white/5 transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="help">help</span>
+</button>
+</div>
+</header>
+<div class="p-8 space-y-8 flex flex-col">
+<!-- Refined Hero Metric -->
+<section class="hero-gradient rounded-[2rem] p-8 glass-card flex justify-between items-center relative overflow-hidden border-primary/10">
+<div class="z-10">
+<p class="font-label-caps text-[10px] text-on-surface-variant mb-2 tracking-[0.2em]">CURRENT SYSTEM OUTPUT</p>
+<h2 class="font-display-lg text-[72px] text-white tracking-tighter leading-none">5.8<span class="text-primary ml-2">kW</span></h2>
+</div>
+<div class="flex gap-8 z-10">
+<div class="flex flex-col items-end">
+<p class="text-on-surface-variant text-[10px] uppercase font-bold tracking-widest mb-1">Peak Today</p>
+<p class="font-data-mono text-2xl text-white">6.2 kW</p>
+</div>
+<div class="w-px h-12 bg-white/10 self-center"></div>
+<div class="flex flex-col items-end">
+<p class="text-on-surface-variant text-[10px] uppercase font-bold tracking-widest mb-1">Grid Export</p>
+<p class="font-data-mono text-2xl text-secondary">0.4 kW</p>
+</div>
+</div>
+<!-- Subtle graphic element -->
+<div class="absolute -right-20 -bottom-20 w-64 h-64 bg-primary/5 rounded-full blur-3xl"></div>
+</section>
+<!-- Optimized Energy Flow Diagram for Tablet (1200px width) -->
+<div class="relative w-full h-[380px] rounded-3xl glass-card overflow-hidden">
+<!-- Central Hub -->
+<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+<div class="w-28 h-28 rounded-3xl glass-card flex items-center justify-center hub-pulse border-primary/20 bg-surface-container-high/90">
+<span class="material-symbols-outlined text-[48px] text-primary" data-icon="settings_input_component">settings_input_component</span>
+</div>
+</div>
+<!-- Animated SVG Paths -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" fill="none" preserveaspectratio="xMidYMid slice" viewbox="0 0 1000 380" xmlns="http://www.w3.org/2000/svg">
+<!-- Lines from Hub to Cards -->
+<path class="energy-path-fast" d="M180 80 C 350 80, 400 190, 500 190" stroke="url(#g-e)" stroke-linecap="round" stroke-width="3"></path>
+<path class="energy-path-fast" d="M820 80 C 650 80, 600 190, 500 190" stroke="url(#g-a)" stroke-linecap="round" stroke-width="3"></path>
+<path class="energy-path" d="M500 190 C 400 190, 350 300, 180 300" stroke="url(#g-b)" stroke-linecap="round" stroke-width="2.5"></path>
+<path class="energy-path" d="M500 190 C 600 190, 650 300, 820 300" stroke="url(#g-w)" stroke-linecap="round" stroke-width="2.5"></path>
+<defs>
+<lineargradient gradientunits="userSpaceOnUse" id="g-e" x1="180" x2="500" y1="80" y2="190"><stop stop-color="#4edea3"></stop><stop offset="1" stop-color="#4edea3" stop-opacity="0"></stop></lineargradient>
+<lineargradient gradientunits="userSpaceOnUse" id="g-a" x1="820" x2="500" y1="80" y2="190"><stop stop-color="#ffb95f"></stop><stop offset="1" stop-color="#ffb95f" stop-opacity="0"></stop></lineargradient>
+<lineargradient gradientunits="userSpaceOnUse" id="g-b" x1="500" x2="180" y1="190" y2="300"><stop stop-color="#0566d9"></stop><stop offset="1" stop-color="#0566d9" stop-opacity="0"></stop></lineargradient>
+<lineargradient gradientunits="userSpaceOnUse" id="g-w" x1="500" x2="820" y1="190" y2="300"><stop stop-color="#e1e3e4"></stop><stop offset="1" stop-color="#e1e3e4" stop-opacity="0"></stop></lineargradient>
+</defs>
+</svg>
+<!-- Cards overlaying the diagram area -->
+<div class="absolute inset-0 p-6 flex flex-col justify-between">
+<div class="flex justify-between items-start">
+<!-- PV -->
+<div class="stagger-1 p-4 glass-card rounded-2xl glow-emerald w-56">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-xl" data-icon="solar_power">solar_power</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">PHOTOVOLTAIC</span>
+</div>
+<p class="font-display-md text-3xl text-primary font-bold">4.2 kW</p>
+<p class="text-[10px] text-on-surface-variant mt-1">92% Efficiency</p>
+</div>
+<!-- Battery -->
+<div class="stagger-2 p-4 glass-card rounded-2xl w-56 text-right">
+<div class="flex items-center justify-end gap-2 mb-2">
+<span class="font-label-caps text-[10px] text-on-surface-variant">STORAGE UNIT</span>
+<span class="material-symbols-outlined text-tertiary text-xl" data-icon="battery_charging_full" style="font-variation-settings: 'FILL' 1;">battery_charging_full</span>
+</div>
+<p class="font-display-md text-3xl text-tertiary font-bold">85%</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Charging (1.2 kW)</p>
+</div>
+</div>
+<div class="flex justify-between items-end">
+<!-- Grid -->
+<div class="stagger-3 p-4 glass-card rounded-2xl w-56">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary text-xl" data-icon="electric_bolt">electric_bolt</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant">UTILITY GRID</span>
+</div>
+<p class="font-display-md text-3xl text-secondary font-bold">0.4 kW</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Exporting</p>
+</div>
+<!-- Load -->
+<div class="stagger-4 p-4 glass-card rounded-2xl w-56 text-right">
+<div class="flex items-center justify-end gap-2 mb-2">
+<span class="font-label-caps text-[10px] text-on-surface-variant">CONSUMPTION</span>
+<span class="material-symbols-outlined text-white text-xl" data-icon="home">home</span>
+</div>
+<p class="font-display-md text-3xl text-white font-bold">3.8 kW</p>
+<p class="text-[10px] text-on-surface-variant mt-1">Optimal Load</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Stats Grid -->
+<section class="grid grid-cols-3 gap-6 opacity-0 animate-[fadeIn_1s_ease-out_0.6s_forwards]">
+<div class="glass-card rounded-2xl p-5 border-white/5">
+<p class="text-[10px] font-bold text-on-surface-variant tracking-[0.1em] mb-4">DAILY YIELD</p>
+<div class="flex items-end justify-between">
+<p class="font-data-mono text-2xl font-bold">24.5 kWh</p>
+<span class="text-primary text-[10px] font-bold px-2 py-0.5 bg-primary/10 rounded-full">+12%</span>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-5 border-white/5">
+<p class="text-[10px] font-bold text-on-surface-variant tracking-[0.1em] mb-4">SYSTEM TEMP</p>
+<div class="flex items-center justify-between">
+<p class="font-data-mono text-2xl font-bold">Stable</p>
+<span class="material-symbols-outlined text-primary text-xl" data-icon="check_circle">check_circle</span>
+</div>
+</div>
+<div class="glass-card rounded-2xl p-5 border-white/5">
+<p class="text-[10px] font-bold text-on-surface-variant tracking-[0.1em] mb-4">IMPACT</p>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="eco">eco</span>
+<p class="font-display-md text-xl font-bold">12.8 kg <span class="text-[10px] opacity-60">CO2</span></p>
+</div>
+</div>
+</section>
+</div>
+</main>
+<script>
+        // Simulated live updates for the focal point and sub-metrics
+        setInterval(() => {
+            const mainMetric = document.querySelector('h2.font-display-lg');
+            if (mainMetric) {
+                const current = parseFloat(mainMetric.innerText);
+                const variation = (Math.random() - 0.5) * 0.1;
+                mainMetric.innerHTML = (current + variation).toFixed(1) + '<span class="text-primary ml-2">kW</span>';
+            }
+        }, 3000);
+
+        // Entrance effect for paths
+        document.addEventListener('DOMContentLoaded', () => {
+            const paths = document.querySelectorAll('path');
+            paths.forEach((p, index) => {
+                p.style.opacity = '0';
+                setTimeout(() => {
+                    p.style.transition = 'opacity 1s ease-in';
+                    p.style.opacity = '1';
+                }, 400 + (index * 150));
+            });
+        });
+    </script>
+</body></html>
